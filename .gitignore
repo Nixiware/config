@@ -1,0 +1,14 @@
+# Composer
+composer.phar
+composer.lock
+
+# IDE
+.buildpath
+.settings
+.project
+
+# OS
+**/.DS_Store
+**/Thumbs.db
+**/.Trashes
+**/.Spotlight-V100
