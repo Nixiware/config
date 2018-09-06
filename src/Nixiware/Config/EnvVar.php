@@ -1,5 +1,5 @@
 <?php
-namespace Nixiware;
+namespace Nixiware\Config;
 
 class EnvVar {
 	const TypeString 		= 0;
@@ -7,13 +7,13 @@ class EnvVar {
 	const TypeBool			= 2;		
 
 	/** 
-	 * Fetches an environmental value.
+	 * Fetches an environment variable value.
 	 *
-	 * @param name - string - name of the environmental value
-	 * @param required - bool - sets the variable as required / optional for the execution
-	 * @param default - string - default value to return
-	 * @param explicitCastType - int - explicitly cast the returned value to a type
-	 * @return environment variable value
+	 * @param string name - name of the environment variable
+	 * @param bool required - sets the variable as required / optional for the execution
+	 * @param mixed default - default value to return if environment variable is not set
+	 * @param int explicitCastType - explicitly cast the returned value to a type
+	 * @return mixed environment variable value
 	 */
 	public static function get($name, $required = false, $default = null, $explicitCastType = self::TypeString) {
 		$content = '';
@@ -28,12 +28,14 @@ class EnvVar {
 			$content = getenv($name);
 		} else if ($default !== null) { // returning default value if possible
 			$content = $default;
-		} else if ($required && $default === null) { // aborting execution
-			throw new \Exception('Required Container enironment variable "' . $name . '" is not available.');
+		} else if ($required && $default === null) { // throwing exception
+			throw new Exception('Required enironment variable "' . $name . '" is not available.');
 		}
 
-		// filtering content
+		// filtering value
 		$value = trim(preg_replace('/\s\s+/', ' ', $content));
+
+		// casting value
 		switch ($explicitCastType) {
 			case self::TypeInt:
 				return (int)$value;
