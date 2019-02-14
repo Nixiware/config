@@ -1,0 +1,15 @@
+{
+    "name": "nixiware/config-test",
+    "description": "Sample PHP project to develop and test config package.",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/var/www/nixiware-config"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "phpunit/phpunit": "^8",
+        "nixiware/config": "*"
+    }
+}

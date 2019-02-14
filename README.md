@@ -42,5 +42,17 @@ EnvVar::get('DB_PASSWORD', true);
 
 Path for the file will be specified using the environment variable ```DB_PASSWORD_FILE```. The variable with the suffix ```_FILE``` is automatically read to allow more flexibility in configuring your application, without requiring to modify the actual configuration files.
 
+## Testing
+
+Giving the fact that the package is designed to help with Docker / Kubernetes deployments, the unit tests must be ran inside a Docker container.
+
+1. Open ```docker/``` directory and run ```bash deployment-start.sh``` to start the container
+2. Connect to container (similar to SSH) by running ```bash container-ssh.sh```
+3. Run the install script ```bash install.sh``` *(inside the container)*
+4. Run the tests script ```bash run-tests.sh``` *(inside the container)*
+
+For cleanup simply run ```bash deployment-stop.sh``` after exiting the container.
+
+
 ## License
 Config is available under the MIT license. See the LICENSE file for more info.

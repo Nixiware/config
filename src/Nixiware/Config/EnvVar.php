@@ -18,17 +18,18 @@ class EnvVar {
 	public static function get($name, $required = false, $default = null, $explicitCastType = self::TypeString) {
 		$content = '';
 
-		if (getenv($name . '_FILE') &&
-			strlen(getenv($name . '_FILE')) > 0 && 
-			file_exists(getenv($name . '_FILE'))) { // checking if a *_FILE environment variable exists and is usable
-
-			$content = file_get_contents(getenv($name . '_FILE'));
-		} else if (getenv($name) &&
-				   strlen(getenv($name)) > 0) { // checking if the environment variable exists and is usable
-			$content = getenv($name);
+		if (array_key_exists($name . '_FILE', $_ENV)
+			&& strlen($_ENV[$name . '_FILE']) > 0
+			&& file_exists($_ENV[$name . '_FILE'])) { // checking if a *_FILE environment variable exists and is usable
+			
+			$content = file_get_contents($_ENV[$name . '_FILE']);
+		} else if (array_key_exists($name, $_ENV)
+				   && strlen($_ENV[$name]) > 0) { // checking if the environment variable exists and is usable
+			
+			$content = $_ENV[$name];
 		} else if ($default !== null) { // returning default value if possible
 			$content = $default;
-		} else if ($required && $default === null) { // throwing exception
+		} else if ($required && $default === null) { // required variable is not set and no default provided
 			throw new Exception('Required enironment variable "' . $name . '" is not available.');
 		}
 

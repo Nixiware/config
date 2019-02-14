@@ -1,0 +1,30 @@
+version: "3.2"
+
+services:
+  application:
+    image: php:7.2-apache
+    environment:
+      BOOL_FALSE: 0
+      BOOL_TRUE: 1
+      INT: 1234
+      STRING: abcd1234
+      PASSWORD_FILE: /run/secrets/password
+    volumes:
+      - type: bind
+        source: ./../
+        target: /var/www/nixiware-config
+      - type: bind
+        source: ./install.sh
+        target: /var/www/html/install.sh
+      - type: bind
+        source: ./composer.json
+        target: /var/www/html/composer.json
+      - type: bind
+        source: ./run-tests.sh
+        target: /var/www/html/run-tests.sh
+      - type: bind
+        source: ./secret.txt
+        target: /run/secrets/password
+      - type: bind
+        source: ./../test
+        target: /var/www/html/test
