@@ -1,6 +1,6 @@
 {
 	"name": "nixiware/config",
-	"description": "",
+	"description": "Configuration helper for containerized applications",
 	"license": "MIT",
 	"require": {
 		"php": ">=5.3.0"
